@@ -5,6 +5,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
@@ -20,8 +21,16 @@ public class cmdManShoot extends Command {
 
     @Override
     protected void execute() {
-        // TODO: Consider setting shooter val as a tunable via the dashboard
-        Robot.subShooter.runShooter(1.0);
+        if (Robot.oi.jsOperator.getRawButton(5)) {
+            Robot.subShooter.runShooter(0.90);          
+        } else {
+            Robot.subShooter.runShooter(0.0);
+        }
+        if (Robot.oi.jsOperator.getRawButton(8)) {
+            Robot.subShooter.runKicker(1.0);
+        } else {
+            Robot.subShooter.runKicker(0.0);
+        }
     }
 
     @Override

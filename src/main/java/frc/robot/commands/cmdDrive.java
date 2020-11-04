@@ -21,8 +21,7 @@ public class cmdDrive extends Command {
     @Override
     protected void execute() {
         // Drive using the joysticks
-        // TODO: Validate axis
-        Robot.subDrive.Drive(Robot.oi.jsDriver.getRawAxis(0), Robot.oi.jsDriver.getRawAxis(0));
+        Robot.subDrive.Drive(Robot.oi.jsDriver.getRawAxis(1), Robot.oi.jsDriver.getRawAxis(5));
     }
 
     @Override

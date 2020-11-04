@@ -4,37 +4,35 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.Robot;
 import frc.robot.commands.cmdManClimb;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.VictorSP;
 
 public class subClimber extends Subsystem {
 
-    private Spark scWenchLeft;
-    private Spark scWenchRight;
-    private SpeedControllerGroup scWench;
-    private DigitalInput diWenchUpperLimit;
-    private DigitalInput diWenchLowerLimit;
+    private VictorSP scClimberLeft;
+    private VictorSP scClimberRight;
+    private SpeedControllerGroup climberGroup;
+    private DigitalInput diClimberUpperLimit;
+    private DigitalInput diClimberLowerLimit;
 
     public subClimber() {
-        scWenchLeft = new Spark(6);
-        addChild("scWenchLeft",scWenchLeft);
-        scWenchLeft.setInverted(false);
 
-        scWenchRight = new Spark(7);
-        addChild("scWenchRight",scWenchRight);
-        scWenchRight.setInverted(false);
+        scClimberLeft = new VictorSP(6);
+        addChild("scClimberLeft",scClimberLeft);
 
-        scWench = new SpeedControllerGroup(scWenchLeft, scWenchRight  );
-        addChild("scWench",scWench);
+        scClimberRight = new VictorSP(7);
+        addChild("scClimberRight",scClimberRight);
 
-        diWenchUpperLimit = new DigitalInput(3);
-        addChild("diWenchUpperLimit",diWenchUpperLimit);
+        climberGroup = new SpeedControllerGroup(scClimberLeft, scClimberRight);
+        addChild("climberGroup",climberGroup);
 
-        diWenchLowerLimit = new DigitalInput(4);
-        addChild("diWenchLowerLimit",diWenchLowerLimit);
+        diClimberUpperLimit = new DigitalInput(7);
+        addChild("diClimberUpperLimit",diClimberUpperLimit);
+
+        diClimberLowerLimit = new DigitalInput(8);
+        addChild("diClimberLowerLimit",diClimberLowerLimit);
     }
 
     @Override
@@ -46,26 +44,27 @@ public class subClimber extends Subsystem {
     public void periodic() {
     }
 
-    public void climbControl() {
+    public void climbControl(double dir) {
         // TODO: Update axis number.
         // TODO: Verify axis direction compared to limits
-        double dir = Robot.oi.jsOperator.getRawAxis(0);
-        double val = 0.0;
-        if (diWenchUpperLimit.get()) {
-            if (dir < 0) {
-                val = 0;
-            } else {
-                val = dir;
-            }
-        } else if (diWenchLowerLimit.get()) {
-            if (dir > 0) {
-                val = 0;
-            } else {
-                val = dir;
-            }
-        } else {
-            val = dir;
-        }
-        scWench.set(val);
+        // double dir = Robot.oi.jsOperator.getRawAxis(0);
+        // double val = 0.0;
+        // if (diClimberUpperLimit.get()) {
+        //     if (dir < 0) {
+        //         val = 0;
+        //     } else {
+        //         val = dir;
+        //     }
+        // } else if (diClimberLowerLimit.get()) {
+        //     if (dir > 0) {
+        //         val = 0;
+        //     } else {
+        //         val = dir;
+        //     }
+        // } else {
+        //     val = dir;
+        // }
+
+        climberGroup.set(dir);
     }
 }

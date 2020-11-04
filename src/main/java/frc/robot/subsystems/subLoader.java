@@ -9,20 +9,30 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.commands.cmdManLoad;
 
 public class subLoader extends Subsystem {
-    private Spark scLoader;
-    private Spark scIntake;
+    private Spark scPivot;
+    private Spark scBallIntake;
+    private Spark scElevator;
+    private Spark scDeckIntake;
     private DigitalInput diHopperStatus;
 
     public subLoader() {
-        scLoader = new Spark(0);
-        addChild("scLoader",scLoader);
-        scLoader.setInverted(false);
+        scPivot = new Spark(0);
+        addChild("scPivot",scPivot);
+        scPivot.setInverted(false);
                 
-        scIntake = new Spark(1);
-        addChild("scIntake",scIntake);
-        scIntake.setInverted(false);
-                
-        diHopperStatus = new DigitalInput(2);
+        scBallIntake = new Spark(1);
+        addChild("scBallIntake",scBallIntake);
+        scBallIntake.setInverted(false);
+
+        scElevator = new Spark(2);
+        addChild("scElevator",scElevator);
+        scElevator.setInverted(false);
+
+        scDeckIntake = new Spark(9);
+        addChild("scDeckIntake",scDeckIntake);
+        scDeckIntake.setInverted(false);
+
+        diHopperStatus = new DigitalInput(6);
         addChild("diHopperStatus",diHopperStatus);
     }
 
@@ -35,15 +45,22 @@ public class subLoader extends Subsystem {
     public void periodic() {
     }
 
-    public void runLoader(double dir) {
-        scLoader.set(dir);
+    public void runArms(double dir){
+        scPivot.set(dir);
     }
 
     public void runIntake(double dir) {
-        scIntake.set(dir);
+        // TODO add method to adjust dir value if needed to slow motors down
+        scBallIntake.set(dir);
+        scDeckIntake.set(dir);
     }
 
     public boolean isEmpty() {
         return diHopperStatus.get();
     }
+
+	public void runElevator(double dir) {
+        scElevator.set(dir);
+
+	}
 }

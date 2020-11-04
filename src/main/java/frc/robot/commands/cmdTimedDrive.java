@@ -15,7 +15,7 @@ public class cmdTimedDrive extends Command {
     private double m_seconds;
     private double m_speed;
     private Timer driveTimer = new Timer();
-    private double kP = 1;
+    private double kP = 1.0;
 
     public cmdTimedDrive(double seconds, double speed) {
         requires(Robot.subDrive);
@@ -32,8 +32,10 @@ public class cmdTimedDrive extends Command {
     @Override
     protected void execute() {
         // Gyro stablized drive
-        double error = -Robot.subDrive.getRate();
-        Robot.subDrive.Drive(m_speed + kP * error, m_speed - kP * error);
+        //double error = -Robot.subDrive.getRate();
+        //System.out.println("Error val is :" + error);
+        //Robot.subDrive.Drive(m_speed + kP * error, m_speed - kP * error);
+        Robot.subDrive.Drive(m_speed, m_speed);
     }
 
     @Override

@@ -19,12 +19,12 @@ public class OI {
         jsDriver = new Joystick(0);
         jsOperator = new Joystick(1);
 
-        jbCPColorSelect = new JoystickButton(jsOperator, 1);
-        jbCPColorSelect.whenPressed(new cmdCPColorSelect());
-        jbCPRotate = new JoystickButton(jsOperator, 1);
-        jbCPRotate.whenPressed(new cmdCPRotate());
-        jbShoot = new JoystickButton(jsOperator, 1);
-        jbShoot.whenPressed(new cmdOpAutoShoot(null, null));
+        // jbCPColorSelect = new JoystickButton(jsOperator, 1);
+        // jbCPColorSelect.whenPressed(new cmdCPColorSelect());
+        // jbCPRotate = new JoystickButton(jsOperator, 1);
+        // jbCPRotate.whenPressed(new cmdCPRotate());
+        // jbShoot = new JoystickButton(jsOperator, 1);
+        // jbShoot.whenPressed(new cmdOpAutoShoot(null, null));
     }
 
     public Joystick getjsDriver() {

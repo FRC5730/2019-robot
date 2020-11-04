@@ -14,7 +14,7 @@ public class cmdTurnToHeading extends Command {
     private double gyroDeadband = 2;
 
     private double m_heading;
-    private double kP = 1;
+    private double kP = .1;
     private double error;
 
     public cmdTurnToHeading(double heading) {

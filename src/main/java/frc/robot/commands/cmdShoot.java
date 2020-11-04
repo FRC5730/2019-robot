@@ -13,8 +13,8 @@ public class cmdShoot extends Command {
 
     //Tunables
     private final double shooterSpeed = 1.0; // how fast should the shooter spin
-    private final double delayTime = 2.0;    // How long should we wait before we start loading balls
-    private final double loaderSpeed = 1.0;  // How fast should the loader run
+    private final double delayTime = 8.0;    // How long should we wait before we start loading balls
+    private final double loaderSpeed = .5;  // How fast should the loader run
     private Timer spoolDelay = new Timer();
 
     public cmdShoot() {
@@ -31,9 +31,15 @@ public class cmdShoot extends Command {
 
     @Override
     protected void execute() {
+        // DON'T MOVE
+        Robot.subDrive.Drive(0, 0);
+
         // if the delay has past, start loader
         if (spoolDelay.get() > delayTime) {
-            Robot.subLoader.runLoader(loaderSpeed);
+            Robot.subShooter.runKicker(1.0);
+            if (spoolDelay.get() > delayTime + 1) {
+                Robot.subLoader.runElevator(loaderSpeed);
+            }
         }
 
     }
@@ -41,24 +47,24 @@ public class cmdShoot extends Command {
     @Override
     protected boolean isFinished() {
         // shoot until loader is empty
-        if (Robot.subLoader.isEmpty()) {
-            return true;
-        } else {
+        // if (Robot.subLoader.isEmpty()) {
+        //     return true;
+        // } else {
             return false;
-        }
+        // }
     }
 
     @Override
     protected void end() {
         // stop motors
         Robot.subShooter.runShooter(0);
-        Robot.subLoader.runLoader(0);
+        Robot.subLoader.runIntake(0);
     }
 
     @Override
     protected void interrupted() {
         // stop motors
         Robot.subShooter.runShooter(0);
-        Robot.subLoader.runLoader(0);
+        Robot.subLoader.runIntake(0);
     }
 }

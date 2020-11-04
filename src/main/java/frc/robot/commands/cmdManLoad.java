@@ -10,6 +10,7 @@ import frc.robot.Robot;
 
 public class cmdManLoad extends Command {
 
+    private double armSpeed = 0.1;
     public cmdManLoad() {
         requires(Robot.subLoader);
     }
@@ -23,32 +24,23 @@ public class cmdManLoad extends Command {
         // TODO: validate button numbers 
         // TODO: validate magnatude and directions
 
-        // Intake In
-        if (Robot.oi.jsOperator.getRawButton(1)) {
-            Robot.subLoader.runIntake(1.0);
+        // Intake based on joystick
+        Robot.subLoader.runIntake(Robot.oi.jsOperator.getY());
+        if (Robot.oi.jsOperator.getX() > 0.1){
+            Robot.subLoader.runElevator(0.5);
         } else {
-            Robot.subLoader.runIntake(0.0);
+            Robot.subLoader.runElevator(0.0);
         }
+        
 
-        // Intake out
-        if (Robot.oi.jsOperator.getRawButton(1)) {
-            Robot.subLoader.runIntake(-1.0);
+        // Arms up/down
+        // Note armSpeed variable above to set speed
+        if (Robot.oi.jsOperator.getRawButton(3)) {
+            Robot.subLoader.runArms(armSpeed);
+        } else if (Robot.oi.jsOperator.getRawButton(6)) {
+            Robot.subLoader.runArms(-armSpeed);
         } else {
-            Robot.subLoader.runIntake(0.0);
-        }
-
-        // Loader In
-        if (Robot.oi.jsOperator.getRawButton(1)) {
-            Robot.subLoader.runLoader(1.0);
-        } else {
-            Robot.subLoader.runLoader(0.0);
-        }
-
-        // Loader out
-        if (Robot.oi.jsOperator.getRawButton(1)) {
-            Robot.subLoader.runLoader(-1.0);
-        } else {
-            Robot.subLoader.runLoader(0.0);
+            Robot.subLoader.runArms(0.0);
         }
     }
 

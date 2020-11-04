@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.commands.cmdManCPRotate;
 
@@ -30,7 +31,7 @@ public class subControlPanel extends Subsystem {
     private final ColorMatch m_colorMatcher = new ColorMatch();
 
     public subControlPanel() {
-        scCPRotate = new Spark(6);
+        scCPRotate = new Spark(8);
         addChild("scCPRotate",scCPRotate);
         scCPRotate.setInverted(false);
 
@@ -47,6 +48,7 @@ public class subControlPanel extends Subsystem {
 
     @Override
     public void periodic() {
+        SmartDashboard.putString("Detected Color", Character.toString(detectColor()));
     }
 
     public void rotateCP(double dir) {
@@ -68,7 +70,7 @@ public class subControlPanel extends Subsystem {
         } else if (match.color == kRedTarget) {
             colorChar = 'R';
         } else if (match.color == kGreenTarget) {
-            colorChar = 'R';
+            colorChar = 'G';
         } else if (match.color == kYellowTarget) {
             colorChar = 'Y';
         } else {

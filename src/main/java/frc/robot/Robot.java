@@ -5,6 +5,7 @@ package frc.robot;
 
 import edu.wpi.first.hal.FRCNetComm.tInstances;
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -43,9 +44,11 @@ public class Robot extends TimedRobot {
         chooser.addOption("cmdAutoLeft", new cmdAutoLeft(null, null, null));
         chooser.addOption("cmdAutoMiddle", new cmdAutoMiddle(null, null, null));
         chooser.addOption("cmdAutoRight", new cmdAutoRight(null, null, null));
-        chooser.setDefaultOption("cmdAutoLeft", new cmdAutoLeft(null, null, null));
+        chooser.setDefaultOption("cmdAutoRight", new cmdAutoRight(null, null, null));
 
         SmartDashboard.putData("Auto mode", chooser);
+
+        CameraServer.getInstance().startAutomaticCapture();
     }
 
     @Override

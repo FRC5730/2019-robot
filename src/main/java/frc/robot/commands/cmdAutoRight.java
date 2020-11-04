@@ -15,10 +15,9 @@ public class cmdAutoRight extends CommandGroup {
 
     public cmdAutoRight(subDrive s_drive, subLoader s_loader, subShooter s_shooter) {
         // cmdTimedDrive(seconds, speed)
-        addSequential(new cmdTimedDrive(2, 1));
-        addSequential(new cmdTurnToHeading(160));
-        addSequential(new cmdCenterTarget());
-        addSequential(new cmdRangeTarget());
+        addSequential(new cmdTimedDrive(1.5, .5));
+        //addSequential(new cmdCenterTarget());
         addSequential(new cmdShoot());
+        //addSequential(new cmdTurnToHeading(90));
     }
 }

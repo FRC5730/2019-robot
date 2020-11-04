@@ -3,18 +3,32 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.commands.cmdManShoot;
-import edu.wpi.first.wpilibj.Spark;
+
 
 public class subShooter extends Subsystem {
-
-    private Spark scShooter;
+    
+    private Spark scKicker;
+    private VictorSP scShooter1;
+    private VictorSP scShooter2;
+    private SpeedControllerGroup shooterGroup;
 
     public subShooter() {
-        scShooter = new Spark(2);
-        addChild("scShooter",scShooter);
-        scShooter.setInverted(false);
+        scKicker = new Spark(3);
+        addChild("scKicker",scKicker);
+        scKicker.setInverted(false);
+        
+        scShooter1 = new VictorSP(4);
+        addChild("scShooter1",scShooter1);
+        scShooter2 = new VictorSP(5);
+        addChild("scShooter2",scShooter2);
+        
+        shooterGroup = new SpeedControllerGroup(scShooter1, scShooter2);
+        addChild("shooterGroup", shooterGroup);
     }
 
     @Override
@@ -27,7 +41,11 @@ public class subShooter extends Subsystem {
     }
 
     public void runShooter(double dir) {
-        scShooter.set(dir);
+        shooterGroup.set(dir);
     }
+
+	public void runKicker(double dir) {
+        scKicker.set(dir);
+	}
 }
 

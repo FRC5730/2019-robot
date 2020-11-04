@@ -21,7 +21,13 @@ public class cmdManClimb extends Command {
     @Override
     protected void execute() {
         // the climber is manually operated so that code is in subClimber
-        Robot.subClimber.climbControl();
+        if (Robot.oi.jsOperator.getRawButton(4)) {
+            Robot.subClimber.climbControl(1.0);
+        } else if (Robot.oi.jsOperator.getRawButton(7)) {
+            Robot.subClimber.climbControl(-1.0);
+        } else {
+            Robot.subClimber.climbControl(0.0);
+        }
     }
 
     @Override

@@ -15,7 +15,7 @@ public class cmdAutoMiddle extends CommandGroup {
 
     public cmdAutoMiddle(subDrive s_drive, subLoader s_loader, subShooter s_shooter) {
         // cmdTimedDrive(seconds, speed)
-        addSequential(new cmdTimedDrive(2, 1));
+        //addSequential(new cmdTimedDrive(2, 1));
         addSequential(new cmdTurnToHeading(160));
         addSequential(new cmdCenterTarget());
         addSequential(new cmdRangeTarget());
